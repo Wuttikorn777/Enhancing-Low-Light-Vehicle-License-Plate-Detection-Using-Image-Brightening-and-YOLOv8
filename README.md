@@ -1,31 +1,32 @@
-# 🚗 ระบบตรวจจับยานพาหนะและป้ายทะเบียนในที่แสงน้อยด้วย YOLOv8
-(Low-Light Vehicle & License Plate Detection using YOLOv8)
+# 🚗 Low-Light Vehicle & License Plate Detection using YOLOv8
 
 ![Project Status](https://img.shields.io/badge/Status-Completed-success)
 ![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
 ![YOLOv8](https://img.shields.io/badge/Model-YOLOv8-red)
 ![OpenCV](https://img.shields.io/badge/OpenCV-Image_Processing-green)
 
-โปรเจคนี้จัดทำขึ้นเพื่อแก้ปัญหา **การตรวจจับวัตถุในสภาวะแสงน้อย (Low-Light Conditions)** โดยการประยุกต์ใช้เทคนิค Image Processing (CLAHE และ Gamma Correction) เพื่อปรับปรุงคุณภาพของรูปภาพให้ชัดเจนขึ้น ก่อนนำเข้าสู่กระบวนการตรวจจับด้วยโมเดล YOLOv8 ช่วยให้สามารถมองเห็นรถและป้ายทะเบียนในที่มืดได้ดียิ่งขึ้น
+**An advanced object detection project designed to identify vehicles and license plates in challenging low-light conditions.**
+
+This project addresses the limitations of standard detection models in dark environments by implementing a robust **Image Preprocessing Pipeline**. By leveraging **CLAHE** and **Gamma Correction**, the system enhances image visibility and contrast before feeding data into the **YOLOv8** model, significantly improving detection accuracy at night.
 
 ---
 
-## 📸 ตัวอย่างผลลัพธ์ (Demo)
-
-*(ตัวอย่างการทำงานของโมเดลเมื่อทดสอบกับไฟล์วิดีโอจริง)*
-![Video Inference Demo](demo_result.gif)
 
 ---
 
-## 💡 หลักการทำงาน (Methodology)
+## 💡(Methodology)
 
 เพื่อให้โมเดลทำงานได้ดีในที่มืด ผมได้สร้าง Preprocessing Pipeline เพื่อปรับปรุงภาพดังนี้:
 
-1.  **Color Space Conversion:** แปลงภาพจาก RGB เป็น **LAB Color Space**
-2.  **CLAHE (Contrast Limited Adaptive Histogram Equalization):** ประยุกต์ใช้เฉพาะกับ **L-channel** (ความสว่าง) เพื่อเพิ่มความคมชัดในส่วนที่มืดโดยไม่ทำให้เกิด Noise มากเกินไป
-3.  **Gamma Correction:** ปรับค่า Gamma เพื่อเพิ่มความสว่างโดยรวม แต่ยังรักษารายละเอียดในส่วนที่สว่างอยู่แล้ว (เช่น ไฟหน้ารถ) ไม่ให้ขาวโพลน
-4.  **YOLOv8 Detection:** นำภาพที่ผ่านการปรับปรุงแล้วเข้าสู่โมเดล YOLOv8 ที่เทรนมาเพื่อตรวจจับยานพาหนะ
+Color Space Conversion: The RGB image is converted to the LAB Color Space to isolate the Luminance (L) channel from color information.
 
+CLAHE (Contrast Limited Adaptive Histogram Equalization): Applied strictly to the L-channel. This enhances local contrast in dark regions without amplifying noise, which is crucial for night-time images.
+
+Gamma Correction: Adjusts the overall brightness (luminance) while preventing overexposure in already bright areas (e.g., car headlights or street lamps).
+
+YOLOv8 Detection: The enhanced image is processed by a custom-trained YOLOv8 model to detect vehicles and license plates.
+
+📂 Project Structure
 ---
 
 ## 📂 โครงสร้างโปรเจค (Project Structure)
@@ -57,7 +58,7 @@ Repository นี้ประกอบด้วย 3 ส่วนหลัก �
 
 ---
 
-## 🛠 เครื่องมือที่ใช้ (Tech Stack)
+## 🛠 (Tech Stack)
 
 * **Language:** Python
 * **Deep Learning:** Ultralytics YOLOv8
@@ -67,14 +68,14 @@ Repository นี้ประกอบด้วย 3 ส่วนหลัก �
 
 ---
 
-## 🚀 วิธีใช้งาน (How to Run)
+## 🚀(How to Run)
 
-1.  Clone repository นี้
-2.  เปิดไฟล์ Notebook (`.ipynb`) ที่ต้องการใน **Google Colab**
-3.  ติดตั้ง Libraries ที่จำเป็น:
+1.  Clone repository 
+2.  openfile Notebook (`.ipynb`) in **Google Colab**
+3.  install Libraries ที่จำเป็น:
     ```python
     !pip install ultralytics roboflow opencv-python-headless
     ```
-4.  **ข้อควรระวัง:** จำเป็นต้องใช้ [Roboflow API Key](https://roboflow.com/) ของคุณเองในการดาวน์โหลด Dataset
+
 
 ---
